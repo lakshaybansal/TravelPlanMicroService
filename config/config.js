@@ -1,6 +1,6 @@
 module.exports = {
 
     'secret': 'travelandexpense',
-    'database': 'mongodb://usercredentials'
+    'database': 'mongodb://localhost/travelPlan'
 
 };
