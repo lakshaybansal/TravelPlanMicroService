@@ -12,19 +12,11 @@ var TravelPlanSchema = mongoose.Schema({
   essentials:Schema.Types.Mixed,
   childServices:Schema.Types.Mixed,}]
 });
-var TravelPlan= mongoose.model('TravelPlan', TravelPlanSchema,'TravelPlans_Collection');
 
 
-var services = {};
-
-services.getTravelPlan = getTravelPlan;
-services.postTravelPlan = postTravelPlan;
-services.putTravelPlan = putTravelPlan;
-services.deleteTravelPlan = deleteTravelPlan;
-
-function getTravelPlan(travelPlanId) {
+TravelPlanSchema.statics.getTravelPlan=function getTravelPlan(travelPlanId) {
       var deferred = Q.defer();
-      TravelPlan.findOne({travelPlanId: travelPlanId})
+      this.findOne({travelPlanId: travelPlanId})
                 .exec(function(err,data){
                   travelPlanData = data;
                    deffered.resolve(travelPlanData);
@@ -33,11 +25,10 @@ function getTravelPlan(travelPlanId) {
     return deferred.promise;
 }
 
-function postTravelPlan(travelPlandata) {
+TravelPlanSchema.statics.postTravelPlan=function postTravelPlan(travelPlandata) {
     var deferred = Q.defer();
-    var TravelPlandata= new TravelPlan(travelPlandata);
-
-    TravelPlandata.save(function(err){
+    var TravelPlandata=  this.create(travelPlandata);
+      TravelPlandata.save(function(err){
       if ( err ) console.log(err);
       console.log(TravelPlandata.travelPlanId +" Saved Successfully");
     });
@@ -46,12 +37,12 @@ function postTravelPlan(travelPlandata) {
     return deferred.promise;
 }
 
-function putTravelPlan(id,travelPlanNew) {
+TravelPlanSchema.statics.putTravelPlan=function putTravelPlan(id,travelPlanNew) {
     var deferred = Q.defer();
-     var TravelPlandata= {
-       travelPlanId:id,
+     var TravelPlandata= new this.create(
+      { travelPlanId:id
        components:travelPlanNew
-     }
+     });
      TravelPlandata.save(function(err){
        if ( err ) console.log(err);
        console.log(TravelPlandata.travelPlanId +" Updated Successfully");
@@ -59,9 +50,9 @@ function putTravelPlan(id,travelPlanNew) {
     return deferred.promise;
 }
 
-function deleteTravelPlan(id) {
+TravelPlanSchema.statics.deleteTravelPlan=function deleteTravelPlan(id) {
     var deferred = Q.defer();
-    TravelPlan.remove({ travelPlanId: id }, function (err) {
+    this.remove({ travelPlanId: id }, function (err) {
         if(err)  console.log(err);
  })
     return deferred.promise;

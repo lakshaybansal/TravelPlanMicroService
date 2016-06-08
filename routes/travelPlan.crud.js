@@ -5,30 +5,32 @@
 var express = require('express');
 var router = express.Router();
 var travelPlan = require('../models/travelPlan.model');
+var TravelPlan= mongoose.model('TravelPlan', TravelPlanSchema,'TravelPlans_Collection');
 
 router.get('/travelPlan/:id', function (req, res, next) {
   var travelPlanId=req.params.id;
-    services.getTravelPlan(travelPlanId).then(function (data) {
+    TravelPlan.getTravelPlan(travelPlanId).then(function (data) {
         res.send(data);
     });
 
 });
 router.post('/travelPlan', function (req, res, next) {
     travelPlandata=req.body;
-    services.postTravelPlan(travelPlandata).then(function () {
-
+    TravelPlan.postTravelPlan(travelPlandata).then(function () {
+  res.send("data saved successfully");
     });
 });
 router.put('/travelPlan/:id', function (req, res, next) {
              var travelPlanId=req.params.id;
-    services.putTravelPlan(id,travelPlanNew).then(function () {
+      TravelPlan.putTravelPlan(id,travelPlanNew).then(function () {
+      res.send("data updated successfully");
     });
 
 });
 router.delete('/travelPlan/:id', function (req, res, next) {
      var travelPlanId=req.params.id;
-    services.deleteTravelPlan(travelPlanId).then(function () {
-      
+    TravelPlan.deleteTravelPlan(travelPlanId).then(function () {
+     res.send("travelplan deleted");
     });
 
 });
