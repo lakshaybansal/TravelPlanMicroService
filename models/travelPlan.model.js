@@ -40,7 +40,7 @@ TravelPlanSchema.statics.postTravelPlan=function postTravelPlan(travelPlandata) 
 TravelPlanSchema.statics.putTravelPlan=function putTravelPlan(id,travelPlanNew) {
     var deferred = Q.defer();
      var TravelPlandata=this.create(
-      { travelPlanId:id
+      { travelPlanId:id,
        components:travelPlanNew
      });
      TravelPlandata.save(function(err){
@@ -58,4 +58,4 @@ TravelPlanSchema.statics.deleteTravelPlan=function deleteTravelPlan(id) {
     return deferred.promise;
 }
 
-module.exports=services;
+module.exports=TravelPlanSchema;

@@ -3,8 +3,9 @@
  */
 
 var express = require('express');
+var mongoose=require('mongoose');
 var router = express.Router();
-var travelPlan = require('../models/travelPlan.model');
+var TravelPlanSchema= require('../models/travelPlan.model');
 var TravelPlan= mongoose.model('TravelPlan', TravelPlanSchema,'TravelPlans_Collection');
 
 router.get('/travelPlan/:id', function (req, res, next) {
