@@ -7,7 +7,8 @@ var Schema = mongoose.Schema;
 var TravelPlanSchema = mongoose.Schema({
   components:[{
   type:String,
-  essentials:Schema.Types.Mixed,
+  state:String,
+  essential:Schema.Types.Mixed,
   childServices:Schema.Types.Mixed}]
 });
 
