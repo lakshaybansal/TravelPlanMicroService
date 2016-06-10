@@ -9,7 +9,8 @@ var TravelPlanSchema = mongoose.Schema({
   type:String,
   state:String,
   essential:Schema.Types.Mixed,
-  childServices:Schema.Types.Mixed}]
+  childServices:Schema.Types.Mixed
+}]
 });
 
 
@@ -26,10 +27,9 @@ TravelPlanSchema.statics.getTravelPlan=function getTravelPlan(travelPlanId) {
 
 TravelPlanSchema.statics.postTravelPlan=function postTravelPlan(travelPlandata) {
     var deferred = Q.defer();
-    var TravelPlandata=  this.create(travelPlandata);
-      TravelPlandata.save(function(err){
+      this.create(travelPlandata,function(err,data){
       if ( err ) console.log(err);
-      deferred.resolve(TravelPlandata._id);
+      deferred.resolve(data._id);
     });
 
 
