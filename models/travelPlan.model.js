@@ -33,7 +33,7 @@ TravelPlanSchema.statics.postTravelPlan=function postTravelPlan(travelPlandata) 
       this.create(travelPlandata,function(err,data){
       if ( err ) deferred.resolve(err);
       console.log(data._id);
-      deferred.resolve(data._id);
+      deferred.resolve(data);
     });
     return deferred.promise;
 }
