@@ -9,19 +9,20 @@ var TravelPlanSchema = mongoose.Schema({
      {
       types:String,
       state:String,
-      essential:Schema.Types.Mixed,
-      childServices:Schema.Types.Mixed
+      essential:{ type:Schema.Types.Mixed, default:{} },
+      childServices:{ type:Schema.Types.Mixed,default:{} }
      }
   ]
-});
-
+},{minimize: false});
 
 TravelPlanSchema.statics.getTravelPlan=function getTravelPlan(travelPlanId) {
       var deferred = Q.defer();
       this.findOne({_id:travelPlanId})
                 .exec(function(err,data){
                   if(err) deferred.resolve(err);
+                  console.log("Inside error",err);
                   travelPlanData = data;
+                  console.log("Inside getTravelPlan",data);
                    deferred.resolve(travelPlanData);
                  });
 
@@ -30,9 +31,11 @@ TravelPlanSchema.statics.getTravelPlan=function getTravelPlan(travelPlanId) {
 
 TravelPlanSchema.statics.postTravelPlan=function postTravelPlan(travelPlandata) {
     var deferred = Q.defer();
+    console.log("Inside postTravelPlan model",travelPlandata);
       this.create(travelPlandata,function(err,data){
       if ( err ) deferred.resolve(err);
       console.log(data._id);
+      console.log('Inside Callback of postTravelPlan method',data);
       deferred.resolve(data);
     });
     return deferred.promise;
