@@ -17,21 +17,23 @@ router.get('/travelPlan/:id', function (req, res, next) {
 });
 router.post('/travelPlan', function (req, res, next) {
     travelPlandata=req.body;
-    TravelPlan.postTravelPlan(travelPlandata).then(function () {
-  res.send("data saved successfully");
+    TravelPlan.postTravelPlan(travelPlandata).then(function (data) {
+  res.send(data);
     });
 });
 router.put('/travelPlan/:id', function (req, res, next) {
              var travelPlanId=req.params.id;
-      TravelPlan.putTravelPlan(id,travelPlanNew).then(function () {
-      res.send("data updated successfully");
+             travelPlanNew=req.body;
+             console.log(travelPlanNew);
+      TravelPlan.putTravelPlan(travelPlanId,travelPlanNew).then(function (data) {
+      res.send(data);
     });
 
 });
 router.delete('/travelPlan/:id', function (req, res, next) {
      var travelPlanId=req.params.id;
-    TravelPlan.deleteTravelPlan(travelPlanId).then(function () {
-     res.send("travelplan deleted");
+    TravelPlan.deleteTravelPlan(travelPlanId).then(function (data) {
+     res.send(data);
     });
 
 });
