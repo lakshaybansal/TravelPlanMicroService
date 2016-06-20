@@ -1,6 +1,6 @@
 module.exports = {
 
-    'secret': 'travelandexpense',
-    'database': 'mongodb://localhost/travelPlan'
+    'secret': process.env.SECRET,
+    'database': process.env.MONGO_CONNECTION_STRING
 
 };
